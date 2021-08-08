@@ -2,11 +2,18 @@ import json
 import os
 
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 # Create your views here.
+
+
 def index(request):
+    return HttpResponse("Hello, world. You're at the login page.")
+
+
+def index_(request):
     return render(request, "logInOut/index.html")
+
 
 def login(req):
     if req.is_ajax and req.method == "POST":
