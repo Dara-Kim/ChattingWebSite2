@@ -1,0 +1,12 @@
+.container{
+    display: table;
+    height: 300px;
+    width: 100%;
+    background: darkgrey;
+    text-align: center;
+}
+
+.wrapper{
+    display: table-cell;
+    vertical-align: middle;
+}

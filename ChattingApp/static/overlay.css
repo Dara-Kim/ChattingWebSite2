@@ -1,0 +1,59 @@
+/*[data-tooltip]:before {*/
+/*    !* needed - do not touch *!*/
+/*    content: attr(data-tooltip);*/
+/*    position: absolute;*/
+/*    opacity: 0;*/
+
+/*    !* customizable *!*/
+/*    transition: all 0.15s ease;*/
+/*    padding: 10px;*/
+/*    color: #333;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 2px 2px 1px silver;*/
+/*}*/
+
+/*[data-tooltip]:hover:before {*/
+/*    !* needed - do not touch *!*/
+/*    opacity: 1;*/
+
+/*    !* customizable *!*/
+/*    background: yellow;*/
+/*    margin-top: -50px;*/
+/*    margin-left: 20px;*/
+/*}*/
+
+/*[data-tooltip]:not([data-tooltip-persistent]):before {*/
+/*    pointer-events: none;*/
+/*}*/
+
+/*!* FOR TEST PURPOSES ONLY *!*/
+/*div {*/
+/*    border: 1px solid silver;*/
+/*    !*background: #ddd;*!*/
+/*    margin: 20px;*/
+/*    padding: 10px;*/
+/*}*/
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

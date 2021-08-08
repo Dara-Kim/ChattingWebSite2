@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 가입</title>
+    <link rel="stylesheet" href="{% static 'align.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <h1>회원 가입</h1>
+            <pre>ID:    <input class="id" type="text" size="50"><br></pre>
+            <pre>PW:    <input class="pw" type="text" size="50"><br></pre>
+            <input class="submit" type="button" value="Enter">
+        </div>
+    </div>
+
+<script>
+    document.querySelector(".id").onkeyup = function (e) {
+        {#엔터 입력시#}
+        if(e.keyCode === 13){
+            document.querySelector(".submit").click();
+        }
+    };
+
+    document.querySelector(".pw").onkeyup = function (e){
+        if(e.keyCode === 13){
+            document.querySelector(".submit").click();
+        }
+    }
+
+    let submit = document.querySelector(".submit");
+
+    submit.addEventListener("click", e =>{
+        let user_id = document.querySelector(".id").value;
+        let pw = document.querySelector(".pw").value;
+
+        let data = {
+            'user_id': user_id,
+            "pw": pw
+        }
+
+        $.ajax({
+            url: '{% url 'logInOut:create_account' %}',
+            type: "POST",
+            headers: {
+                'X-CSRFTOKEN' : '{{ csrf_token }}'
+            },
+            data : JSON.stringify(data),
+            success: function (data){
+                if(data.stat == 1){
+                    alert("회원가입 완료!")
+                    window.location.pathname = '/chat/index/';
+                }
+                else{
+                    alert(data.errmsg);
+                }
+            },
+            error: function(data){}
+        })
+    })
+</script>
+
+</body>
+</html>
