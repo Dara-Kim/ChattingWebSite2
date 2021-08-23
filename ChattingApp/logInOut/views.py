@@ -3,8 +3,11 @@ import os
 
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
+from django.core import serializers
 
 # Create your views here.
+from logInOut.models import Report
 
 
 def index(request):
@@ -51,7 +54,7 @@ def create_account(req):
                 req_data["errmsg"] = "이미 존재하는 ID 입니다"
             elif len(pw) < 6:
                 req_data["stat"] = 0
-                req_data["errmsg"] = "비밀번호는 6자 이상 설정해 주세요"
+                #req_data["errmsg"] = "비밀번호는 6자 이상 설정해 주세요"
             else:
                 req_data["stat"] = 1
                 req_data["errmsg"] = ""
@@ -59,3 +62,8 @@ def create_account(req):
         return JsonResponse(req_data)
     else:
         return render(req, "logInOut/create_account.html")
+
+def getApi(request):
+    report = Report.objects.all()
+    report_list = serializers.serialize('json', report)
+    return HttpResponse(report_list, content_type="text/json-comment-filtered")

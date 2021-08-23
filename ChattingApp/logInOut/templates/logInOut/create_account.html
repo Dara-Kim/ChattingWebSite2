@@ -11,13 +11,15 @@
     <div class="container">
         <div class="wrapper">
             <h1>회원 가입</h1>
-            <pre>ID:    <input class="id" type="text" size="50"><br></pre>
-            <pre>PW:    <input class="pw" type="text" size="50"><br></pre>
+            <pre>         ID:    <input required class="id" type="text" size="50"><br></pre>
+            <pre>         PW:    <input required minlength="6" class="pw" type="text" size="50"><br></pre>
+            <pre>RE-Enter PW:    <input required minlength="6" class="repw" type="text" size="50"><br></pre>
             <input class="submit" type="button" value="Enter">
         </div>
     </div>
 
 <script>
+
     document.querySelector(".id").onkeyup = function (e) {
         {#엔터 입력시#}
         if(e.keyCode === 13){
@@ -31,15 +33,28 @@
         }
     }
 
+    document.querySelector(".repw").onkeyup = function (e) {
+        {#엔터 입력시#}
+         if(e.keyCode === 13){
+            document.querySelector(".submit").click();
+        }
+    };
+
     let submit = document.querySelector(".submit");
 
     submit.addEventListener("click", e =>{
         let user_id = document.querySelector(".id").value;
         let pw = document.querySelector(".pw").value;
+        let repw = document.querySelector(".repw").value;
+
+        if(pw !== repw){
+            alert("비밀번호가 다릅니다.");
+            return;
+        }
 
         let data = {
             'user_id': user_id,
-            "pw": pw
+            'pw': pw
         }
 
         $.ajax({
@@ -50,7 +65,7 @@
             },
             data : JSON.stringify(data),
             success: function (data){
-                if(data.stat == 1){
+                if(data.stat === 1){
                     alert("회원가입 완료!")
                     window.location.pathname = '/chat/index/';
                 }

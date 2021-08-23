@@ -53,7 +53,7 @@
             },
             data : JSON.stringify(data),
             success: function (data){
-                if(data.stat == 1){
+                if(data.stat === 1){
                     alert("로그인 성공!")
                     window.location.pathname = '/logInOut/index/';
                 }
