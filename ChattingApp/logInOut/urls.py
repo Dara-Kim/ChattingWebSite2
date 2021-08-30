@@ -10,5 +10,5 @@ urlpatterns = [
     path('chat/index/', views.index_, name='index'),
     path("login/", views.login, name="login"),
     path("chat/create_account/", views.create_account, name="create_account"),
-    path('getApi/', views.getApi, name='getApi'),
+    path("chat/index/", views.create_room, name="create_room"),
 ]
