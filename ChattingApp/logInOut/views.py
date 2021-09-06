@@ -92,37 +92,33 @@ def create_room(req):
         with open('./logInOut/db/rooms.json', 'r') as r:
             jsonfile = json.load(r)
             req_data = {}
-            chat_data = {}
 
             if room_id in jsonfile.keys():
-                req_data["stat"] = 0
                 req_data["errmsg"] = "이미 존재하는 룸 입니다"
             elif len(room_id) < 3:
-                req_data["stat"] = 0
                 req_data["errmsg"] = "채팅방 이름은 3자 이상 설정해 주세요"
             else:
-                req_data["stat"] = 1
-            if req_data["stat"] == 1:
-                #req_data[room_id] = chat_data
-                with open('./logInOut/db/rooms.json', 'w') as w:
-                    json.dumps(req_data, jsonfile)
+                data.update({room_id: "true"})
+                json.dump(data, open('./logInOut/db/rooms.json', 'w'))
 
         return JsonResponse(req_data)
     else:
         return render(req, "logInOut/rooms.html")
 
 
-def chat(req, room_id, user_id, talk):
+def chat(req, time, room_id, user_id, talk):
     if req.is_ajax and req.method == "POST":
         data = json.loads(req.body)
 
-        with open('./logInOut/db/rooms.json', 'w') as w:
-            jsonfile = json.load(w)
+        with open('./logInOut/db/rooms.json', 'r') as w:
             req_data = {}
-            # req_data["room_id"][n][시간][0] = user_id
-            # req_data["room_id"][n][시간][0] = talk
-            json.dumps(req_data, jsonfile)
+            data.update({room_id: {time: [user_id, talk]}})
+            json.dump(data, open('./logInOut/db/rooms.json', 'w'))
 
         return JsonResponse(req_data)
     else:
         return render(req, "logInOut/rooms.html")
+
+
+def rooms():
+    return 0
